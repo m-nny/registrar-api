@@ -2,8 +2,11 @@ import express from 'express';
 
 import Course from './course.interface';
 import courseModel from './courses.model';
+import CreateCourseDto from './course.dto';
 
 import Controller from '../interfaces/controller.interface';
+import PostNotFoundException from '../exceptions/PostNotFoundException';
+import validationMiddleware from '../middleware/validation.middleware';
 
 class CourseController implements Controller {
   public path = '/courses';
@@ -15,10 +18,10 @@ class CourseController implements Controller {
   }
 
   private initializeRoutes() {
-    this.router.post(this.path, this.createCourse);
+    this.router.post(this.path, validationMiddleware(CreateCourseDto), this.createCourse);
     this.router.get(this.path, this.getAllCourses);
     this.router.get(`${this.path}/:id`, this.getCourseById);
-    this.router.put(`${this.path}/:id`, this.modifyCourse);
+    this.router.patch(`${this.path}/:id`, validationMiddleware(CreateCourseDto, true), this.modifyCourse);
     this.router.delete(`${this.path}/:id`, this.deleteCourse);
   }
 
@@ -29,20 +32,28 @@ class CourseController implements Controller {
       })
   }
 
-  private getCourseById: express.RequestHandler = (request, response) => {
+  private getCourseById: express.RequestHandler = (request, response, next) => {
     const { id } = request.params;
     this.course.findById(id)
       .then((course) => {
-        response.send(course)
+        if (course) {
+          response.send(course)
+        } else {
+          next(new PostNotFoundException(id));
+        }
       })
   }
 
-  private modifyCourse: express.RequestHandler = (request, response) => {
+  private modifyCourse: express.RequestHandler = (request, response, next) => {
     const { id } = request.params;
     const courseData: Course = request.body;
     this.course.findByIdAndUpdate(id, courseData, { new: true })
       .then(course => {
-        response.send(course);
+        if (course) {
+          response.send(course);
+        } else {
+          next(new PostNotFoundException(id));
+        }
       })
   }
 
@@ -55,14 +66,14 @@ class CourseController implements Controller {
       });
   }
 
-  private deleteCourse: express.RequestHandler = (request, response) => {
+  private deleteCourse: express.RequestHandler = (request, response, next) => {
     const { id } = request.params;
     this.course.findByIdAndDelete(id)
       .then((successResponse) => {
         if (successResponse) {
           response.sendStatus(200);
         } else {
-          response.sendStatus(404);
+          next(new PostNotFoundException(id));
         }
       })
   }

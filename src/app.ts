@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
 import Controller from './interfaces/controller.interface';
+import errorMiddleware from './middleware/error.middleware';
 
 class App {
   public app: express.Application;
@@ -15,7 +16,7 @@ class App {
     this.initializeControllers(controllers);
   }
 
-  connectToDatabase = () => {
+  private connectToDatabase = () => {
     const {
       MONGODB_URI
     } = process.env;
@@ -25,11 +26,15 @@ class App {
     });
   }
 
-  initializeMiddlewares() {
+  private initializeMiddlewares() {
     this.app.use(bodyParser.json())
   }
 
-  initializeControllers(controllers: Controller[]) {
+  private initializeErrorHandling() {
+    this.app.use(errorMiddleware);
+  }
+
+  private initializeControllers(controllers: Controller[]) {
     controllers.forEach(controller => {
       this.app.use('/', controller.router)
     })
