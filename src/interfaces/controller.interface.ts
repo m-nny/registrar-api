@@ -2,7 +2,7 @@ import express from 'express';
 
 interface Controller {
   path: string
-  router: express.IRouter
+  router: express.Router
 }
 
 export default Controller;
