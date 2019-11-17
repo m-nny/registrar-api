@@ -1,8 +1,11 @@
-import * as express from 'express';
+import express from 'express';
 
 import Course, { newCourse } from './course.interface';
 
-class CourseController {
+import Controller from '../interfaces/controller.interface';
+
+
+class CourseController implements Controller {
   public path = '/courses';
   public router = express.Router();
 
