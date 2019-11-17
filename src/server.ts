@@ -1,7 +1,7 @@
-import "dotenv/config";
-import App from "./app";
-import CourseController from "./courses/courses.controller";
-import validateEnv from "./utils/validateEnv";
+import 'dotenv/config';
+import App from './app';
+import CourseController from './courses/courses.controller';
+import validateEnv from './utils/validateEnv';
 
 validateEnv();
 

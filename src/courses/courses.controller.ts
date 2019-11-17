@@ -1,6 +1,6 @@
 import express from 'express';
 
-import Course, { newCourse } from './course.interface';
+import Course from './course.interface';
 import courseModel from './courses.model';
 
 import Controller from '../interfaces/controller.interface';
@@ -8,7 +8,6 @@ import Controller from '../interfaces/controller.interface';
 class CourseController implements Controller {
   public path = '/courses';
   public router = express.Router();
-
   private course = courseModel;
 
   constructor() {
@@ -31,7 +30,7 @@ class CourseController implements Controller {
   }
 
   private getCourseById: express.RequestHandler = (request, response) => {
-    const id = request.params.id;
+    const { id } = request.params;
     this.course.findById(id)
       .then((course) => {
         response.send(course)
@@ -39,7 +38,7 @@ class CourseController implements Controller {
   }
 
   private modifyCourse: express.RequestHandler = (request, response) => {
-    const id = request.params.id;
+    const { id } = request.params;
     const courseData: Course = request.body;
     this.course.findByIdAndUpdate(id, courseData, { new: true })
       .then(course => {
@@ -57,7 +56,7 @@ class CourseController implements Controller {
   }
 
   private deleteCourse: express.RequestHandler = (request, response) => {
-    const id = request.params.id;
+    const { id } = request.params;
     this.course.findByIdAndDelete(id)
       .then((successResponse) => {
         if (successResponse) {

@@ -38,6 +38,7 @@ class App {
   public listen() {
     const { PORT } = process.env;
     this.app.listen(PORT, () => {
+      // eslint-disable-next-line no-console
       console.log(`App listening on port ${PORT}`);
     });
   }
