@@ -1,6 +1,6 @@
 export default interface Course {
   id: string,
-  name: string,
+  title: string,
   instructor: string,
   capacity: number,
   filled: number,
@@ -8,10 +8,10 @@ export default interface Course {
 
 export type CourseEventHandler = (couse: Course) => void;
 
-export function newCourse(id: string, name: string, instructor: string, capacity: number, filled = 0): Course {
+export function newCourse(id: string, title: string, instructor: string, capacity: number, filled = 0): Course {
   return {
     id,
-    name,
+    title,
     instructor,
     capacity,
     filled,
