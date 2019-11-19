@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import cors = require('cors');
 
 import Controller from './interfaces/controller.interface';
 import errorMiddleware from './middleware/error.middleware';
@@ -28,6 +29,8 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(bodyParser.json())
+    // https://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
+    this.app.use(cors({origin: '*'}))
   }
 
   private initializeErrorHandling() {
