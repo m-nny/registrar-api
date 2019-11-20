@@ -11,7 +11,7 @@
         "lint:write": "eslint . --color --format codeframe --ext .ts,.tsx --fix"
     },
     "lint-staged": {
-        "*.ts": [
+        "src/**/*.{ts,js}": [
             "npm run lint:write",
             "git add"
         ]
