@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "airbnb-base",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": 1,
+
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "lines-between-class-members": 0,
+    "react/display-name": 0,
+    "react/prop-types": 0,
+    "spaced-comment": 0,
+    "no-undef": 0,
+
+    "no-var": 2,
+    "import/no-unresolved": 0
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
