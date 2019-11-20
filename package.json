@@ -7,7 +7,7 @@
         "db:run": "docker run -it -p 27017:27017 mongo",
         "build": "tsc",
         "start": "node dist/server.js",
-        "lint": "eslint .",
+        "lint": "eslint . --ext .ts,.tsx",
         "lint:write": "eslint . --color --format codeframe --ext .ts,.tsx --fix"
     },
     "lint-staged": {
