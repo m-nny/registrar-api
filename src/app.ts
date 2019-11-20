@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-
 import Controller from './interfaces/controller.interface';
 import errorMiddleware from './middleware/error.middleware';
 
