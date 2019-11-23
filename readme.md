@@ -1,4 +1,4 @@
-# Regestry API
+# Registrar API
 
 ![](https://github.com/m-nny/registrar-api/workflows/Node%20CI/badge.svg)
 
